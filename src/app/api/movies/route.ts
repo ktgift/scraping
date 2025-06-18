@@ -45,48 +45,41 @@ export async function GET() {
         // console.log(`Searching for movie elements in ${$('.display-post-story').find('div')} `);
 
         $('.display-post-story').each((index, element) => {
+            if(index < 4 || index > 44) return
             // console.log(`Processing element ${index}: ${$(element)}`); 
-            const title = $(element).find('div').text().split('<br>');  
-            console.log(`Title: ${title}`);
-
+            const el = $(element).find('div').text().split('<br>').toString().split('Director:');  
+            
+            const title = el[0].toString().replace(/^\d+\.\s*/, '').trim();
+            const director = el[1].toString().trim()
+            // console.log('index', index)
+            // console.log('title', title)
+            // console.log('director', director)
 
             const imageUrl = $(element).find('.img-in-post').attr('src');
-            console.log(`Image URL: ${imageUrl}`);
+            // console.log(`Image URL: ${imageUrl}`);
 
-            // const description = $(element).find('.display-post-story__content').text().trim();
+            const detail = $(element).toString().split('img:960x960">')
+            const d  = detail.length > 1 ? detail[1].split('\n') : []
+            const description = d.length > 1 ? d[1].toString().replace(/<br\s*\/?>/gi, '') : ''
+            console.log('description', description)
+
+            const link = $(element).find('a').attr('href')
+            console.log('link', link)
+
+            // เพิ่มข้อมูลเฉพาะหนังที่มีชื่อและรูปภาพครบถ้วน
+            if (title && director && imageUrl  && description && link) {
+                movies.push({
+                    title: title ?? '',
+                    director: director ?? '',
+                    imageUrl: imageUrl ?? '',
+                    description: description ?? '',
+                    link: link ?? '' 
+                });
+            }
 
 
         })
         
-
-        // วนลูปหาหนังแต่ละเรื่องที่อยู่ใน .box-movies-list
-        // $('.movie-card').each((index, element) => {
-        //     console.log(`Processing movie element ${element}`);
-
-        //     // ค้นหาชื่อหนังและรูปภาพภายใน element ของหนังเรื่องนั้นๆ
-        //     const title = $(element).find('.name').text().trim();
-        //     const date = $(element).find('.date').text().trim();
-        //     const ref = $(element).find('a').attr('href') ?? '';
-
-        //     console.log(ref);
-
-        //     const imageElement = $(element).find('.image').attr('style');
-        //     const match = imageElement && imageElement.match(/url\(["']?(.*?)["']?\)/);
-
-        //     const imageUrl = match ? match[1] : '';
-
-
-        //     // เพิ่มข้อมูลเฉพาะหนังที่มีชื่อและรูปภาพครบถ้วน
-        //     // if (title && date && imageUrl) {
-        //         movies.push({
-        //             date: date.substring(0,10) ?? '',
-        //             title: title ?? '',
-        //             imageUrl: imageUrl ?? '',
-        //             ref: ref.split('/')[3] ?? ''
-        //         });
-        //     // }
-        // });
-
         // --- CHANGE 3: ส่งข้อมูล movies ที่ได้กลับไป ---
         return NextResponse.json(
             { data: movies },

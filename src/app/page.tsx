@@ -21,6 +21,8 @@ export default function Home() {
   const { currentPage, totalPages, setCurrentPage } = usePaginationStore();
   const { data: movies, isLoading, error } = useMovies();
 
+  console.log('movies', movies)
+
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
