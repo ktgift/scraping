@@ -58,36 +58,3 @@ export function useMovies() {
 
   return query;
 }
-
-export function useMovieDetail(ref: string) {
-  const getMovieDetail = useMovieStore((state) => state.getMovieDetail);
-  const setMovieDetail = useMovieStore((state) => state.setMovieDetail);
-  
-  const query = useQuery<MovieDetail, Error>({
-    queryKey: ['movie', ref],
-    queryFn: async () => {
-      // Check store first
-      const storedMovie = getMovieDetail(ref);
-      if (storedMovie) {
-        return storedMovie;
-      }
-
-      // If not in store, fetch from API
-      const response = await fetch(`/api/movies/${encodeURIComponent(ref)}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch movie details');
-      }
-      const data = await response.json();
-      return data.data;
-    },
-    enabled: !!ref,
-  });
-
-  useEffect(() => {
-    if (query.data) {
-      setMovieDetail(ref, query.data);
-    }
-  }, [query.data, ref, setMovieDetail]);
-
-  return query;
-} 
