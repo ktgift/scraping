@@ -50,7 +50,7 @@ export async function GET() {
             const el = $(element).find('div').text().split('<br>').toString().split('Director:');  
             
             const title = el[0].toString().replace(/^\d+\.\s*/, '').trim();
-            const director = el[1].toString().trim()
+            const director = el[1]
             // console.log('index', index)
             // console.log('title', title)
             // console.log('director', director)
