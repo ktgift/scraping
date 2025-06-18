@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useMovieStore } from '@/store/movieStore';
-import { Movie, MovieDetail } from '@/types';
+import { Movie } from '@/types';
 
 
 const STORAGE_KEY = 'sf-movies-data';

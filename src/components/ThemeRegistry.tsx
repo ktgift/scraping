@@ -7,14 +7,14 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#1976d2',
+      main: '#ffd237',
     },
     secondary: {
       main: '#dc004e',
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#3c3963',
+      paper: '#3c3963',
     },
   },
   typography: {

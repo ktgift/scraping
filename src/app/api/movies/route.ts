@@ -49,8 +49,8 @@ export async function GET() {
             // console.log(`Processing element ${index}: ${$(element)}`); 
             const el = $(element).find('div').text().split('<br>').toString().split('Director:');  
             
-            const title = el[0].toString().replace(/^\d+\.\s*/, '').trim();
-            const director = el[1]
+            const title = el[0].toString().replace(/^\d+\.\s*/, '').replace(/"/g, '').trim();
+            const director = el?.length > 1 ? el[1].toString().replace(/\n[\s\S]*$/, '').trim() : '';
             // console.log('index', index)
             // console.log('title', title)
             // console.log('director', director)
@@ -60,7 +60,7 @@ export async function GET() {
 
             const detail = $(element).toString().split('img:960x960">')
             const d  = detail.length > 1 ? detail[1].split('\n') : []
-            const description = d.length > 1 ? d[1].toString().replace(/<br\s*\/?>/gi, '') : ''
+            const description = d.length > 1 ? d[1].toString().replace(/<br\s*\/?>/gi, '').replace("<!-- Start svn -->",'') : ''
             console.log('description', description)
 
             const link = $(element).find('a').attr('href')

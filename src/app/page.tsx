@@ -56,15 +56,16 @@ export default function Home() {
         Pantip Movies
       </Typography>
 
-      {/* <Grid container spacing={3}>
-        {paginatedMovies.map((movie) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={movie.ref}>
-            <Link href={`/movie/${movie.ref}`} style={{ textDecoration: 'none' }}>
-              <Card sx={{ 
+      <Grid container spacing={3} >
+        {paginatedMovies.map((movie, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <Link href={`/movie/${index}`} style={{ textDecoration: 'none' }}>
+              <Card  sx={{ 
                 height: '100%', 
                 display: 'flex', 
                 flexDirection: 'column',
                 transition: 'transform 0.2s',
+                backgroundColor: "#000",
                 '&:hover': {
                   transform: 'scale(1.02)',
                   boxShadow: 3
@@ -84,16 +85,19 @@ export default function Home() {
                     {movie.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {movie.date}
+                    {movie.director}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" noWrap>
+                    {movie.description}
                   </Typography>
                 </CardContent>
               </Card>
             </Link>
           </Grid>
         ))}
-      </Grid> */}
+      </Grid>
 
-      {/* {movies && movies.length > 0 && (
+      {movies && movies.length > 0 && (
         <Box display="flex" justifyContent="center" mt={4}>
           <Stack spacing={2}>
             <Pagination 
@@ -108,7 +112,7 @@ export default function Home() {
             </Typography>
           </Stack>
         </Box>
-      )} */}
+      )}
     </Container>
   );
 }
